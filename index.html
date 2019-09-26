@@ -3,42 +3,79 @@
 <head>   <!-ctrl + alt + C open browser--> 
 	<meta charset = "UTF-8">
 	<title>Space Invaders</title>
-	<script src="js/helpers.js"> 
+	<script src="js/helpers.js">
+
 	</script>
 	<style>
-	   /* background of the game */	
+	   /* background of the game */
+     	
        canvas{
-           background-color> #000; 
+           background-color: #000; 
            display: block;
            position: absolute;
-           margin:auto;
-           top:0;
+           margin: auto;
+           top: 0;
            bottom: 0;
            left:  0;
            right: 0;	
        }    
-
+      
 	</style>
 		 
 </head>
 <body>
+  
+
+
 
 </body>
 <script>
-   var screen, input, frames;
-   var alSprite, taSprite, ciSprite;
-   var aliens, dir, tank, bullets, cities;
 
-   function main() {
+  var screen, input, frames;
+  var alSprite, taSprite, ciSprite; // Sprites
+  var aliens, dir, tank, bullets, cities; // dir is and bullets is projectiles
+  
+  function main() {
+    screen = new Screen(504, 600);  
+    input = new InputHandeler();
 
+    var img = new Image();
+
+    img.addEventListener("load", function(){
+            alSprite = [
+		    	[new Sprite(this, 0 , 0, 22, 16) , new Sprite(this,0 , 16, 22,16)],	             	
+				  [new Sprite(this, 22, 0, 16, 16), new Sprite(this,22, 16, 16, 16)], 
+				  [new Sprite(this, 38, 0, 24, 16), new Sprite(this, 38, 16, 24, 16)] 
+       	];
+       	taSprite = new Sprite(this);
+        ciSprite = new Sprite(this);
+        
+        init();
+        run();
+
+        });
+
+        img.src = "image/invaders.png"; 
+    };
+  
+  function init(){};
+  function run(){
+   	var loop = function() {
+   		update();
+   		render();
+
+   		window.requestAnimationFrame(loop, screen.canvas);
+   	};
+   	window.requestAnimationFrame(loop, screen.canvas);
    };
-   function init(){};
-   function run(){};
-   function update(){};
-   function render(){};
-   
+  function update(){};
+              
+  function render(){
+   	   screen.drawSprite(alSprite[1][1], 10, 10);
+  };
 
-   main();
-</script>
+  main();
+
+</script> 
 
 </html>
