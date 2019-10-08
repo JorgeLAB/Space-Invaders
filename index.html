@@ -30,25 +30,25 @@
 
 </body>
 <script>
-
-  var screen, input, frames;
-  var alSprite, taSprite, ciSprite; // Sprites
+/* Variables enable in the game */ 
+  var screen, input, frames;     // display 
+  var alSprite, taSprite, ciSprite; // Sprites three category
   var aliens, dir, tank, bullets, cities; // dir is and bullets is projectiles
   
   function main() {
     screen = new Screen(504, 600);  
     input = new InputHandeler();
 
-    var img = new Image();
+    var img = new Image();  // this API Image() constructor is equivalent to document.createElement('img'). Variable local.
 
-    img.addEventListener("load", function(){
+    img.addEventListener("load", function(){ // this function split the image getting the sprites
             alSprite = [
-		    	[new Sprite(this, 0 , 0, 22, 16) , new Sprite(this,0 , 16, 22,16)],	             	
+		    	[new Sprite(this, 0 , 0, 22, 16) , new Sprite(this,0 , 16, 22,16)],	// each square is 8 px             	
 				  [new Sprite(this, 22, 0, 16, 16), new Sprite(this,22, 16, 16, 16)], 
 				  [new Sprite(this, 38, 0, 24, 16), new Sprite(this, 38, 16, 24, 16)] 
        	];
-       	taSprite = new Sprite(this);
-        ciSprite = new Sprite(this);
+       	taSprite = new Sprite(this, 62, 0 , 22, 16);
+        ciSprite = new Sprite(this, 84, 8, 36, 24);
         
         init();
         run();
@@ -58,7 +58,23 @@
         img.src = "image/invaders.png"; 
     };
   
-  function init(){};
+  function init(){ // queuing the aliens 
+      frame = 0;
+      aliens = [];
+      var rows = [1, 0, 0, 2, 2];
+      for(var i = 0, len = rows.length; i<len; i++){
+          for(var j=0; j<10; j++){
+              var a = rows[i];
+              aliens.push({
+                sprite: alSprite[a],
+                x:30 + j*30 + [0,4,0][a],
+                y:30 + i*30,
+                w:alSprite[a][0].w,
+                h:alSprite[a][0].h 
+              });
+        }
+      }
+  };
   function run(){
    	var loop = function() {
    		update();
@@ -71,7 +87,10 @@
   function update(){};
               
   function render(){
-   	   screen.drawSprite(alSprite[1][1], 10, 10);
+   	   for( var i=0, len = aliens.length; i<len; i++){
+           var a = aliens[i];
+           screen.drawSprite(a.sprite[0],a.x,a.y);
+       }
   };
 
   main();

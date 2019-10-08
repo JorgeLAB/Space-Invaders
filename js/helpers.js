@@ -1,19 +1,18 @@
 // script with functions and class that will support my game screen
 // Helper functions
 
-// Screens
+// function Screens - append object in the canvas 
 function Screen(width, height){
-	this.canvas = document.createElement("canvas");
+	this.canvas = document.createElement("canvas"); // create new canvas
 	this.canvas.width = this.width = width;
 	this.canvas.height = this.height = height;
-	this.ctx = this.canvas.getContext("2d"); /* What do getContex*/
-
-	document.body.appendChild(this.canvas);
-    };
+	this.ctx = this.canvas.getContext("2d"); // provades the context of 2d renderization
+ 
+  document.body.appendChild(this.canvas); // appendChild is the method appends a node as the last child of a node
+};
 
 Screen.prototype.drawSprite = function(sp,x, y){
-    this.ctx.drawImage(sp.img, sp.x, sp.y, sp.w , sp.h, x, y, sp.w, sp.h);
-
+  this.ctx.drawImage(sp.img, sp.x, sp.y, sp.w , sp.h, x, y, sp.w, sp.h);
 }; 
 // prototype allow objects inherit methods and properties
 
@@ -26,9 +25,7 @@ function Sprite(img, x, y, w, h){
     this.h = h;    
 };
 
-
-
-// InputHandeler  
+// InputHandeler = motions in the keyboard  
 
 function InputHandeler(){
    this.down = {};
