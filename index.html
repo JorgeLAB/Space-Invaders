@@ -59,37 +59,38 @@
     };
   
   function init(){ // queuing the aliens 
-      frame = 0;
+      frame = 0; // inicialization
       aliens = [];
-      var rows = [1, 0, 0, 2, 2];
+      var rows = [1, 0, 0, 2, 2]; // defination tipy of alien
       for(var i = 0, len = rows.length; i<len; i++){
           for(var j=0; j<10; j++){
               var a = rows[i];
-              aliens.push({
+              aliens.push({ 
                 sprite: alSprite[a],
-                x:30 + j*30 + [0,4,0][a],
-                y:30 + i*30,
-                w:alSprite[a][0].w,
-                h:alSprite[a][0].h 
+                x:30 + j*30 + [0,5,0][a], // I don't understand [0,5,0]
+                y:30 + i*30, // vertical space
+                w:alSprite[a][0].w,  // I don't understand this pass don't change anything.
+                h:alSprite[a][0].h   // basec if you del line 72 and 73 the program run normaly.
               });
         }
       }
   };
+
   function run(){
    	var loop = function() {
    		update();
    		render();
-
    		window.requestAnimationFrame(loop, screen.canvas);
-   	};
+   	
+    };
    	window.requestAnimationFrame(loop, screen.canvas);
    };
   function update(){};
               
-  function render(){
+  function render(){ // aliens is global variable
    	   for( var i=0, len = aliens.length; i<len; i++){
            var a = aliens[i];
-           screen.drawSprite(a.sprite[0],a.x,a.y);
+           screen.drawSprite(a.sprite[0],a.x,a.y); // a.sprite[0] is position of recharge and a.sprite[1] is position of attack
        }
   };
 
