@@ -31,7 +31,7 @@
 </body>
 <script>
 /* Variables enable in the game */ 
-  var screen, input, frames;     // display 
+  var screen, input, frames, spFrame, lvFrame;     // display 
   var alSprite, taSprite, ciSprite; // Sprites three category
   var aliens, dir, tank, bullets, cities; // dir is and bullets is projectiles
   
@@ -60,6 +60,11 @@
   
   function init(){ // queuing the aliens 
       frame = 0; // inicialization
+      spFrame = 0;
+      lvFrame = 60; 
+      dir = 2;
+
+
       aliens = [];
       var rows = [1, 0, 0, 2, 2]; // defination tipy of alien
       for(var i = 0, len = rows.length; i<len; i++){
@@ -85,12 +90,22 @@
     };
    	window.requestAnimationFrame(loop, screen.canvas);
    };
-  function update(){};
+  function update(){
+      frame++;
+      if(frame% lvFrame === 0){
+        spFrame = (spFrame + 1) % 2;
+
+        for(var i= 0 , len = aliens.length; i<len; i++){
+          var a = aliens[i];
+          a.x += 30*dir;
+        }
+      }
+  };
               
   function render(){ // aliens is global variable
    	   for( var i=0, len = aliens.length; i<len; i++){
            var a = aliens[i];
-           screen.drawSprite(a.sprite[0],a.x,a.y); // a.sprite[0] is position of recharge and a.sprite[1] is position of attack
+           screen.drawSprite(a.sprite[spFrame],a.x,a.y); // a.sprite[0] is position of recharge and a.sprite[1] is position of attack
        }
   };
 
