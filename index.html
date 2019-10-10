@@ -61,7 +61,7 @@
   function init(){ // queuing the aliens 
       frame = 0; // inicialization
       spFrame = 0;
-      lvFrame = 60; 
+      lvFrame = 20; 
       dir = 1;
 
 
@@ -94,11 +94,24 @@
       frame++;
       if(frame% lvFrame === 0){
         spFrame = (spFrame + 1) % 2; // I don't understand this pass
+        
+        var _max = 0, _min = screen.width ; // max position in the screen and min position;
+         
 
         for(var i= 0 , len = aliens.length; i<len; i++){
           var a = aliens[i];
           a.x += 30*dir;
+          _max = Math.max(_max, a.x + a.w ); // I can't interpret this pass.
+          _min = Math.min(_min,a.x);
         }
+        if(_max > screen.width - 30 || _min < 30){ // When the aliens reach the right wall (less 30px) back and or when it comes to the beginning back 
+          dir*= - 1  ;
+          for( var i = 0, len = aliens.length; i<len; i++){
+               aliens[i].x += 30*dir; //jumps controls for other lines space 
+               aliens[i].y += 20; // vertical jumps
+          }
+        }
+
       }
   };
               
