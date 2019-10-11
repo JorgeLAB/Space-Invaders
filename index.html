@@ -64,7 +64,6 @@
       lvFrame = 60; 
       dir = 1;
 
-      
       tank = {
         sprite: taSprite,
         x: (screen.width - taSprite.w)/2,
@@ -103,6 +102,8 @@
       if(input.isDown(39)){ // right
           tank.x += 4; 
       };
+
+      tank.x = Math.max(Math.min(tank.x, screen.width - (30 + taSprite.w)),30);
 
       frame++;
       if(frame% lvFrame === 0){
