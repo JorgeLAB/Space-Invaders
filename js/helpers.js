@@ -1,6 +1,20 @@
 // script with functions and class that will support my game screen
 // Helper functions
 
+function Bullet(x, y, vely, w, h, color){
+  this.x = x;
+  this.y = y;
+  this.vely = vely;
+  this.width = w;
+  this.height = h;
+  this.color = color;
+}
+
+Bullet.prototype.update = function(){
+  this.y += this.valy;
+};
+
+
 // function Screens - append object in the canvas 
 function Screen(width, height){
 	this.canvas = document.createElement("canvas"); // create new canvas
@@ -11,14 +25,19 @@ function Screen(width, height){
   document.body.appendChild(this.canvas); // appendChild is the method appends a node as the last child of a node
 };
 
-Screen.prototype.clear= function(){
+Screen.prototype.clear= function(){  // this function eliminate one column aliens in interval frame
     this.ctx.clearRect(0, 0, this.width, this.height);
 
 };
 
 Screen.prototype.drawSprite = function(sp,x, y){
   this.ctx.drawImage(sp.img, sp.x, sp.y, sp.w , sp.h, x, y, sp.w, sp.h);
-}; 
+};
+
+Screen.prototype.drawBullet = function(bullet){
+  this.ctx.fillStyle = bullet.color;
+  this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height); 
+} 
 // prototype allow objects inherit methods and properties
 
 // Sprite = is the grafic object that movie in the game without a trace
