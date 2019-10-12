@@ -104,10 +104,15 @@
       };
 
       tank.x = Math.max(Math.min(tank.x, screen.width - (30 + taSprite.w)),30); // restrict left and right screen for the tank.
-
+      
       if(input.isPressed(32)){ //space
            bullets.push(new Bullet(tank.x, tank.y, -8, 2, 6, "#fff"))
       };
+
+      for(var i= 0, len = bullets.length; i<len; i++){
+             bullets[i].update();
+      };
+
 
       frame++;
       if(frame% lvFrame === 0){

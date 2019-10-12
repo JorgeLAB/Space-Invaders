@@ -8,12 +8,10 @@ function Bullet(x, y, vely, w, h, color){
   this.width = w;
   this.height = h;
   this.color = color;
-}
-
-Bullet.prototype.update = function(){
-  this.y += this.valy;
 };
-
+Bullet.prototype.update = function(){
+  this.y += this.vely;
+};
 
 // function Screens - append object in the canvas 
 function Screen(width, height){
@@ -24,6 +22,8 @@ function Screen(width, height){
  
   document.body.appendChild(this.canvas); // appendChild is the method appends a node as the last child of a node
 };
+
+// Interaction in the screen
 
 Screen.prototype.clear= function(){  // this function eliminate one column aliens in interval frame
     this.ctx.clearRect(0, 0, this.width, this.height);
@@ -38,6 +38,7 @@ Screen.prototype.drawBullet = function(bullet){
   this.ctx.fillStyle = bullet.color;
   this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height); 
 } 
+
 // prototype allow objects inherit methods and properties
 
 // Sprite = is the grafic object that movie in the game without a trace
@@ -77,4 +78,4 @@ InputHandeler.prototype.isPressed = function(code){
     	return this.pressed[code] = true;
     }
     return false;
-};
+};  
