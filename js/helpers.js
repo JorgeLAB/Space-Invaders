@@ -1,6 +1,13 @@
 // script with functions and class that will support my game screen
 // Helper functions
 
+function AABBIntersect(ax, ay, aw, ah, bx, by, bw, bh){
+    return ax < bx+bw && bx< ax+aw && ay < by+bh && by < ay+ah;
+
+};
+
+// bullets
+
 function Bullet(x, y, vely, w, h, color){
   this.x = x;
   this.y = y;

@@ -106,12 +106,31 @@
       tank.x = Math.max(Math.min(tank.x, screen.width - (30 + taSprite.w)),30); // restrict left and right screen for the tank.
       
       if(input.isPressed(32)){ //space
-           bullets.push(new Bullet(tank.x, tank.y, -8, 2, 6, "#fff"))
-      };
+           bullets.push(new Bullet(tank.x+10, tank.y, -8, 2, 6, "#fff")) // this parameters at of constructor modify position of bullet.
+      }
 
       for(var i= 0, len = bullets.length; i<len; i++){
-             bullets[i].update();
-      };
+        var b =  bullets[i];
+        b.update();
+        // This algorithm avoid the bullet perpetuate in infity ocupaty space in mamory
+        if(b.y + b.height < 0 || b.y > screen.height){ // Limit distance of the bullet
+          bullets.splice(i,1); // remove 1 element present in index i of the array bullet.
+          i--;
+          len--; 
+          continue;
+        }
+      }
+      if(Math.random()<0.03 && aliens.length > 0){
+        var a = aliens[Math.round(Math.random() * ( aliens.length -1))];
+        for( var i = 0, len = aliens.length; i< len ; i++){
+           var b = aliens[i];
+           if(AABBIntersect(a.x, a.y, a.w, 100, b.x, b.y, b.w, b.h)){
+               a = b;
+           }
+           bullets.push( new Bullet(a.x + a.w*0.5, a.y+a.h, 4 , 2, 4, "#fff"));
+        }
+
+      }
 
 
       frame++;
@@ -121,7 +140,7 @@
         var _max = 0, _min = screen.width ; // max position in the screen and min position;
          
         for(var i= 0 , len = aliens.length; i<len; i++){
-          var a = aliens[i];
+          var a = aliens[i];  
           a.x += 30*dir;
           _max = Math.max(_max, a.x + a.w ); // I can't interpret this pass.
           _min = Math.min(_min,a.x);
