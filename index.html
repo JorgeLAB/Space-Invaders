@@ -69,6 +69,26 @@
       }
 
       bullets = [];
+      cities = { 
+          canvas: null,
+          y: tank.y -( 90 - ciSprite.h),  // position cities relative tank
+          h:ciSprite.h,
+
+          init: function(){
+            this.canvas = document.createElement("canvas");
+            this.canvas.width = screen.width;
+            this.canvas.height = this.h;
+            this.ctx = this.canvas.getContext("2d");
+
+            for( var i = 0; i< 4; i++){
+              this.ctx.drawImage( ciSprite.img, ciSprite.x, ciSprite.y, ciSprite.w, ciSprite.h, 68 + 111*i, 0 , ciSprite.w, ciSprite.h );
+            } //provades the context of 2d renderization
+
+          },
+          generateDamage:function(x,y){},
+          hits: function(x, y){}
+        };
+      cities.init();
 
       aliens = [];
       var rows = [1, 0, 0, 2, 2]; // defination tipy of alien
@@ -105,7 +125,7 @@
 
       tank.x = Math.max(Math.min(tank.x, screen.width - (30 + taSprite.w)),30); // restrict left and right screen for the tank.
       
-      if(input.isPressed(32)){ //space
+      if(input.isDown(32)){ //space
            bullets.push(new Bullet(tank.x+10, tank.y, -8, 2, 6, "#fff")) // this parameters at of constructor modify position of bullet.
       }
 
@@ -137,7 +157,7 @@
               break;
             
             case 10: 
-              this.lvFrame = 20;
+              this.lvFrame = 30;
               break;
             
             case 5: 
@@ -204,7 +224,10 @@
        };
        screen.ctx.restore();
 
+       screen.ctx.drawImage(cities.canvas, 0, cities.y);
+
        screen.drawSprite(tank.sprite, tank.x, tank.y);
+
   };
 
   main();
