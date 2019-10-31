@@ -1,9 +1,8 @@
 // script with functions and class that will support my game screen
 // Helper functions
 
-function AABBIntersect(ax, ay, aw, ah, bx, by, bw, bh){
-    return ax < bx+bw && bx< ax+aw && ay < by+bh && by < ay+ah;
-
+function AABBIntersect(ax, ay, aw, ah, bx, by, bw, bh) {
+  return ax < bx+bw && bx < ax+aw && ay < by+bh && by < ay+ah;
 };
 
 // bullets
@@ -42,7 +41,7 @@ Screen.prototype.drawSprite = function(sp,x, y){
 };
 
 Screen.prototype.drawBullet = function(bullet){
-  this.ctx.fillStyle = bullet.color;
+  this.ctx.fillStyle = bullet.color; //?
   this.ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height); 
 } 
 
